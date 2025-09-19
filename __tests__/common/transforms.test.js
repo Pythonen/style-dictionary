@@ -45,6 +45,8 @@ const {
   sizeComposeRemToSp,
   sizeComposeEm,
   sizeComposeRemToDp,
+  sizeComposeDp,
+  sizeComposeSp,
   sizeSwiftRemToCGFloat,
   sizeRemToPx,
   sizePxToRem,
@@ -945,6 +947,54 @@ describe('common', () => {
       });
       it('should throw an error if prop value is Nan', () => {
         expect(() => transforms[sizeComposeRemToSp].transform({ value: 'a' }, {}, {})).to.throw();
+      });
+    });
+
+    describe(sizeComposeSp, () => {
+      it('should work', () => {
+        const value = transforms[sizeComposeSp].transform(
+          {
+            value: '12px',
+          },
+          {},
+          {},
+        );
+        const value2 = transforms[sizeComposeSp].transform(
+          {
+            value: '12',
+          },
+          {},
+          {},
+        );
+        expect(value).to.equal('12.00.sp');
+        expect(value2).to.equal('12.00.sp');
+      });
+      it('should throw an error if prop value is Nan', () => {
+        expect(() => transforms[sizeComposeSp].transform({ value: 'a' }, {}, {})).to.throw();
+      });
+    });
+
+    describe(sizeComposeDp, () => {
+      it('should work', () => {
+        const value = transforms[sizeComposeDp].transform(
+          {
+            value: '12px',
+          },
+          {},
+          {},
+        );
+        const value2 = transforms[sizeComposeDp].transform(
+          {
+            value: '12',
+          },
+          {},
+          {},
+        );
+        expect(value).to.equal('12.00.dp');
+        expect(value2).to.equal('12.00.dp');
+      });
+      it('should throw an error if prop value is Nan', () => {
+        expect(() => transforms[sizeComposeDp].transform({ value: 'a' })).to.throw();
       });
     });
 
