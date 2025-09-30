@@ -1,15 +1,3 @@
-/*
- * Copyright 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
- * the License. A copy of the License is located at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
- * and limitations under the License.
- */
 import { expect } from 'chai';
 import Color from 'tinycolor2';
 import transforms, { isColor } from '../../lib/common/transforms.js';
@@ -45,6 +33,8 @@ const {
   sizeComposeRemToSp,
   sizeComposeEm,
   sizeComposeRemToDp,
+  sizeComposeDp,
+  sizeComposeSp,
   sizeSwiftRemToCGFloat,
   sizeRemToPx,
   sizePxToRem,
@@ -945,6 +935,54 @@ describe('common', () => {
       });
       it('should throw an error if prop value is Nan', () => {
         expect(() => transforms[sizeComposeRemToSp].transform({ value: 'a' }, {}, {})).to.throw();
+      });
+    });
+
+    describe(sizeComposeSp, () => {
+      it('should work', () => {
+        const value = transforms[sizeComposeSp].transform(
+          {
+            value: '12px',
+          },
+          {},
+          {},
+        );
+        const value2 = transforms[sizeComposeSp].transform(
+          {
+            value: '12',
+          },
+          {},
+          {},
+        );
+        expect(value).to.equal('12.00.sp');
+        expect(value2).to.equal('12.00.sp');
+      });
+      it('should throw an error if prop value is Nan', () => {
+        expect(() => transforms[sizeComposeSp].transform({ value: 'a' }, {}, {})).to.throw();
+      });
+    });
+
+    describe(sizeComposeDp, () => {
+      it('should work', () => {
+        const value = transforms[sizeComposeDp].transform(
+          {
+            value: '12px',
+          },
+          {},
+          {},
+        );
+        const value2 = transforms[sizeComposeDp].transform(
+          {
+            value: '12',
+          },
+          {},
+          {},
+        );
+        expect(value).to.equal('12.00.dp');
+        expect(value2).to.equal('12.00.dp');
+      });
+      it('should throw an error if prop value is Nan', () => {
+        expect(() => transforms[sizeComposeDp].transform({ value: 'a' })).to.throw();
       });
     });
 
